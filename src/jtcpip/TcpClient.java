@@ -1,20 +1,70 @@
 package jtcpip;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Inet4Address;
+import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.SocketAddress;
 
 /**
  * Created by jooivind on 02.11.2015.
  */
-public class TcpClient {
-    private String address;
-    private int port;
-    private Socket socket;
+public class TcpClient
+{
+	private Socket socket;
 
-    public TcpClient(String address, int port) throws UnknownHostException, IOException
-    {
-        socket = new Socket(Inet4Address.getByName(address), port);
-    }
+	public TcpClient()
+	{
+		socket = new Socket();
+	}
+
+	public TcpClient(String address, int port)
+	{
+		socket = new Socket();
+		try {
+			SocketAddress sock = new InetSocketAddress(Inet4Address.getByName(address), port);
+		} catch (Exception e) {
+			
+		}
+	}
+
+	public void connect(SocketAddress address)
+	{
+		try {
+			socket.connect(address);
+			socket.setKeepAlive(true);
+		} catch (Exception e) {
+			System.err.println("[TcpClient]: Error connectiong!");
+		}
+	}
+
+	public boolean isConnected()
+	{
+		return socket.isConnected();
+	}
+
+	public void disconnect()
+	{
+		try {
+			socket.close();
+		} catch (Exception e) {
+			System.err.println("[TcpClient]: Error disconnecting!");
+		}
+	}
+
+	public OutputStream getOutputStream() throws IOException {
+		if(isConnected()){
+			return socket.getOutputStream();
+		}
+		return null;
+	}
+
+	public InputStream getInputStream() throws IOException {
+		if(isConnected()){
+			return socket.getInputStream();
+		}
+		return null;
+	}
 }
