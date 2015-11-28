@@ -17,7 +17,7 @@ public class main
 	}
 	public static void main(String[] args)
 	{
-		TcpClient tcp = new TcpClient("192.168.3.7", 1234);
+		TcpClient tcp = new TcpClient("192.168.3.8", 1234);
 
 		OutputStream out;
 		InputStream in;
@@ -31,8 +31,8 @@ public class main
 				print_string(bfrR.readLine());
 				bfrR.ready();
 				//System.out.println("WRITING TO SERVER");
-				bfrW.write("OK");
-				bfrW.flush();
+				//bfrW.write("OK");
+				//bfrW.flush();
 				//System.out.println("FLUSHED");
 			}
 		} catch(Exception e) {
