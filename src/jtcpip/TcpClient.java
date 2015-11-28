@@ -25,19 +25,22 @@ public class TcpClient
 		socket = new Socket();
 		try {
 			SocketAddress sock = new InetSocketAddress(Inet4Address.getByName(address), port);
+			connect(sock);
 		} catch (Exception e) {
-			
+
 		}
 	}
 
-	public void connect(SocketAddress address)
+	public boolean connect(SocketAddress address)
 	{
 		try {
-			socket.connect(address);
 			socket.setKeepAlive(true);
+			socket.connect(address);
+			return true;
 		} catch (Exception e) {
 			System.err.println("[TcpClient]: Error connectiong!");
 		}
+		return false;
 	}
 
 	public boolean isConnected()
