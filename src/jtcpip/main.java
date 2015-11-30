@@ -1,5 +1,7 @@
 package jtcpip;
 
+import jtcpip.parser.Parser;
+
 import java.io.*;
 import java.util.stream.Stream;
 
@@ -17,7 +19,7 @@ public class main
 	}
 	public static void main(String[] args)
 	{
-		TcpClient tcp = new TcpClient("192.168.3.8", 1234);
+		/*TcpClient tcp = new TcpClient("192.168.3.8", 1234);
 
 		OutputStream out;
 		InputStream in;
@@ -37,6 +39,8 @@ public class main
 			}
 		} catch(Exception e) {
 			System.err.println(e.getMessage());
-		}
+		}*/
+		String[] test = Parser.extractArgs("$GPGGA,162438.000,5921.3239,N,00911.6173,E,1,08,1.4,47.4,M,41.2,M,,0000*65");
+		//
 	}
 }

@@ -1,8 +1,6 @@
 package jtcpip;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -57,9 +55,18 @@ public class TcpClient
 		}
 	}
 
-	public OutputStream getOutputStream() throws IOException {
-		if(isConnected()){
+	public OutputStream getOutputStream() throws IOException
+	{
+		if (isConnected()) {
 			return socket.getOutputStream();
+		}
+		return null;
+	}
+
+	public BufferedReader getBufferedReader() throws IOException
+	{
+		if(isConnected()){
+			return new BufferedReader(new InputStreamReader(getInputStream()));
 		}
 		return null;
 	}
